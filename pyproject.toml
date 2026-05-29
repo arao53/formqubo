@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "formqubo"
+version = "0.1.0"
+description = "Hybrid quantum-classical optimization: convert Pyomo MIP/MIQP models to QUBO for D-Wave annealing"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = [
+    "pyomo>=6.0",
+    "dimod>=0.12",
+]
+
+[project.optional-dependencies]
+# D-Wave quantum hardware + LeapHybridSampler
+dwave = [
+    "dwave-ocean-sdk>=6.0",
+]
+# All optional extras
+all = [
+    "formqubo[dwave]",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["scripts"]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+]
